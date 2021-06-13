@@ -1,1 +1,8 @@
-Sorry, the SMS handler server is down. Please try again later.
+<Response>
+  <Message>
+    THIS IS AN AUTOMATED MESSAGE
+    
+    Sorry, the SMS handler server is down. Please try again later/
+    
+  </Message>
+</Response>
