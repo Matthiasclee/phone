@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Phone Interface</title>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous"/>
+</head>
+<body>
+	<script type="text/javascript">
+		function call() {
+			var x = prompt("Phone Number")
+			if (x == null) {} else {window.location.href = "call/" + x}
+		}
+	function deleteThread(x){
+		if (confirm("Delete Thread?")) {
+			window.location.href = 'RT/+' + x
+		}
+	
+	}
+		function editC(x){
+			var a = prompt("New Name")
+			if (a == null) {} else {window.location.href = 'CC1/+' + x + '/' + a}
+		}
+	</script>
+	<div style="display: inline;">
+	<h1 style="display: inline;"><a style="color:blue; text-decoration: none; border-radius: 5px;" href="CT"><i class='far fa-edit'></i></a></h1> <h1 style="display: inline;"><a style="color:blue; text-decoration: none; border-radius: 5px;" onclick="call()"><i class="fas fa-phone-alt"></i></a></h1>
+	</div>
+	<br>
+	<div style="width: 100%; position: fixed; left: 0%; background-color: black; height: 3px;"></div>
+	<%=
+	if File.exist?("threads/threads")
+	threads = File.read("threads/threads").split("\n")
+	else
+	threads = ""
+	end
+	x = 0
+	out = "" 
+	c = Hash[*File.read('threads/C').split(/[,\n]+/)]
+	while x < threads.length
+		if c[threads[x]] == nil
+			out = out + "<br><div style = 'border: 5px solid black; height:21px; width: 270px; border-radius:5px;'><h3 style = 'margin-top:0px; text-align:center;'><a style = 'color:blue; text-decoration:none;' href = 'thread/#{threads[x]}#send'>#{threads[x]}</a> <a style = 'color:blue;' onclick = 'editC(#{threads[x]})'><i class='far fa-edit'></i></a> <a style = 'color:red;' onclick = 'deleteThread(#{threads[x]})'><i class='far fa-trash-alt'></i></a></h3></div>"
+		else
+			out = out + "<br><div style = 'border: 5px solid black; height:21px; width: 270px; border-radius:5px;'><h3 style = 'margin-top:0px; text-align:center;'><a style = 'color:blue; text-decoration:none;' href = 'thread/#{threads[x]}#send'>#{c[threads[x]]}</a> <a style = 'color:blue;' onclick = 'editC(#{threads[x]})'><i class='far fa-edit'></i></a> <a style = 'color:red;' onclick = 'deleteThread(#{threads[x]})'><i class='far fa-trash-alt'></i></a></h3></div>"
+		end
+		
+		x = x + 1
+	end
+	out
+	%>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title><%=
+	c = Hash[*File.read('threads/C').split(/[,\n]+/)]
+		if c[@thread] == nil
+			"#{@thread}"
+		else
+			"#{c[@thread]}"
+		end
+	%></title>
+	<script language="javascript">
+
+setInterval(function(){
+	if (document.getElementById("msg").value == "") {window.location.reload(1);}
+   
+}, 5000);
+</script>
+	<style type="text/css">
+		input:focus, button:focus, textarea:focus, a:focus{
+  outline: none !important;
+}
+	</style>
+	<link
+      rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous"/>
+</head>
+<body>
+	<script type="text/javascript">
+	if (window.location.href.indexOf("#send") > -1) {
+	} else {
+		window.location.href = "<%=@thread%>#send"
+	}
+	</script>
+	<div style="position: fixed; left:0%;  top: 0%; width: 100%; background-color: #8f8e8b;">
+	<div style="display: inline;">
+	<h2 style="display: inline;"><a style="color:blue; text-decoration: none; border-radius: 5px;" href="/"><i class="far fa-arrow-alt-circle-left"></i></a></h2>
+	<h2 style="display: inline;"><a style="color:blue; text-decoration: none; border-radius: 5px;" href=""><i class="fas fa-redo-alt"></i></a></h2>
+	<h2 style="display: inline;"><a style="color:blue; text-decoration: none; border-radius: 5px;" href="/call/<%=@thread%>"><i class="fas fa-phone-alt"></i></a></h2>
+	</div>
+	</div>
+	<br>
+	<h1 style="text-align: center"><%=
+	c = Hash[*File.read('threads/C').split(/[,\n]+/)]
+		if c[@thread] == nil
+			"#{@thread}"
+		else
+			"#{c[@thread]}"
+		end
+	%></h1>
+	<%=
+	thread = File.read("threads/#{@thread}.thrd").split("\n")
+	x = 0
+	out = ""
+	while x < thread.length
+		if thread[x].split("█")[1] == "RECEIVE"
+			if thread[x].split("█")[3] == nil
+				out = out + "<div style = 'border: 4px solid white; border-radius: 15px; background-color:#8f8e8b;'><h3 style = 'text-align: left; margin-left: 10px;'>#{thread[x].split("█")[2].to_s.gsub("\\n", "<br>").gsub("<", "&#60;").gsub("&#60;br>", "<br>")}</h3></div>"
+			else
+				out = out + "<div style = 'border: 4px solid white; border-radius: 15px; background-color:#8f8e8b;'><h3 style = 'text-align: left; margin-left: 10px;'>#{thread[x].split("█")[2].to_s.gsub("\\n", "<br>").gsub("<", "&#60;").gsub("&#60;br>", "<br>")}<div></div><a href = '#{thread[x].split("█")[3]}' target = '_blank' style = 'color:blue;'><i style = 'margin-left: 10px;' class='fas fa-external-link-alt'></i></a><div></div><img style = 'margin-bottom: 5px; margin-left: 10px;' height = '10%' width = '10%' src = '#{thread[x].split("█")[3]}'></h3></div>"
+			end
+			
+		else
+			out = out + "<div style = 'border: 4px solid white; border-radius: 15px; background-color:#0088ff;'><h3 style = 'text-align: right; margin-right: 10px;'>#{thread[x].split("█")[2].gsub("\\n", "<br>").gsub("<", "&#60;")}</h3></div>"
+		end
+		x = x + 1
+	end
+	out
+	%>
+	<br>
+	<form method="POST" action="/SEND" id="send">
+		<input type="text" hidden="true" name="thread" value="<%=@thread%>">
+		<input style="width: 100%; margin-left: 0px; margin-right: 0px; border: 2px solid black; border-radius: 5px; height:25px;" type="text" name="msg" id="msg" value="">
+		<h3><button style="color:blue; border: 5px solid black; text-decoration: none; border-radius: 5px;" type="submit">Send</button></h3>
+	</form>
+</body>
+</html>

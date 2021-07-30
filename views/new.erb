@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>New Message</title>
+		<style type="text/css">
+		input:focus, button:focus, textarea:focus, a:focus{
+  outline: none !important;
+}
+	</style>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous"/>
+</head>
+<body>
+	<h2><a style="color:blue; text-decoration: none; border-radius: 5px;" href="/"><i class="far fa-arrow-alt-circle-left"></i></a></h2>
+	<form method="POST" action="/SEND">
+		<label for="thread">TO: </label>
+		<input style="width: 100%; margin-left: 0px; margin-right: 0px; border: 2px solid black; border-radius: 5px; height:25px;" type="text" name="thread">
+		<input style="width: 100%; margin-left: 0px; margin-right: 0px; border: 2px solid black; border-radius: 5px; height:25px;" type="text" name="msg">
+		<h3><button style="color:blue; border: 5px solid black; text-decoration: none; border-radius: 5px;" type="submit">Send</button></h3>
+	</form>
+</body>
+</html>
