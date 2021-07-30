@@ -1,8 +1,8 @@
 require 'twilio-ruby'
 
-$accountsid = "AC2c2c8c3ecdcbf13dd9bebbf6f9f985dd" #ACCOUNT SID HEERE
-$authtoken = "a38d6dd4ab315a1f56ae46fb31c9846b" #AUTH TOKEN HERE
-$phone = "+12012989132" #SENDING PHONE NUMBER HERE
+$accountsid = "" #ACCOUNT SID HEERE
+$authtoken = "" #AUTH TOKEN HERE
+$phone = "" #SENDING PHONE NUMBER HERE
 def logMSG(phone, body)
 
 if File.exist?("./threads/" + phone + ".thrd")
